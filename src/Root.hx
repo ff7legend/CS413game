@@ -55,8 +55,7 @@ class Root extends Sprite {
                         	ninja.x = 100;
                         	ninja.y = 0;
                         }else{
-                        	trace(ranNum);
-                        	
+
                         	ninja = new Image(Root.assets.getTexture("ninja"));
                        	 	addChild(ninja);
                         	ninja.x = 100;
