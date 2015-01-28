@@ -17,6 +17,7 @@ class Root extends Sprite {
     public static var assets:AssetManager;
     public var ninja:Image;
     public var tails:Image;
+    
   	
 
     public function new() {
@@ -31,7 +32,7 @@ class Root extends Sprite {
 		assets.enqueue("assets/tails.png");
 		
         assets.enqueue("assets/ninja.png");
-        assets.loadQueue(function onProgress(ratio:Float) {
+        assets.loadQueue(function onProgress(ratio:Int) {
 		
             if (ratio == 1) {
 	
@@ -46,13 +47,15 @@ class Root extends Sprite {
 						
                        
                         var ranNum:Float;
-                       	ranNum = Math.random();
+                       	ranNum = Math.round(Math.random());
+                       	
                         if(ranNum%2 == 1){
                         	ninja = new Image(Root.assets.getTexture("tails"));
                        	 	addChild(ninja);
                         	ninja.x = 100;
                         	ninja.y = 0;
                         }else{
+                        	trace(ranNum);
                         	
                         	ninja = new Image(Root.assets.getTexture("ninja"));
                        	 	addChild(ninja);
