@@ -17,7 +17,7 @@ class Root extends Sprite {
     public static var assets:AssetManager;
     public var heads:Image;
     public var tails:Image;
-    public var BG: Image;
+    public var BG:Image;
 
     
   	
