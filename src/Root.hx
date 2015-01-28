@@ -15,8 +15,10 @@ class Root extends Sprite {
 
 
     public static var assets:AssetManager;
-    public var ninja:Image;
+    public var heads:Image;
     public var tails:Image;
+    public var BG: Image;
+
     
   	
 
@@ -29,9 +31,10 @@ class Root extends Sprite {
 
         assets = new AssetManager();
 	
+		assets.enqueue("assets/BG.png");
 		assets.enqueue("assets/tails.png");
-		
-        assets.enqueue("assets/ninja.png");
+        assets.enqueue("assets/heads.png");
+        
         assets.loadQueue(function onProgress(ratio:Int) {
 		
             if (ratio == 1) {
@@ -43,45 +46,46 @@ class Root extends Sprite {
                         onComplete: function() {
                         startup.removeChild(startup.loadingBitmap);
                         
-                    
+                    	BG = new Image(Root.assets.getTexture("BG"));
+                    	addChild(BG);
 						
                        
                         var ranNum:Float;
                        	ranNum = Math.round(Math.random());
                        	
                         if(ranNum%2 == 1){
-                        	ninja = new Image(Root.assets.getTexture("tails"));
-                       	 	addChild(ninja);
-                        	ninja.x = 100;
-                        	ninja.y = 0;
+                        	heads = new Image(Root.assets.getTexture("tails"));
+                       	 	addChild(heads);
+                        	heads.x = 250;
+                        	heads.y = 0;
                         }else{
 
-                        	ninja = new Image(Root.assets.getTexture("ninja"));
-                       	 	addChild(ninja);
-                        	ninja.x = 100;
-                        	ninja.y = 0;
+                        	heads = new Image(Root.assets.getTexture("heads"));
+                       	 	addChild(heads);
+                        	heads.x = 250;
+                        	heads.y = 0;
                         }
                         
                         Starling.current.stage.addEventListener(KeyboardEvent.KEY_DOWN, 
                         	function(event:KeyboardEvent){
                         		trace(event.keyCode);
                         		if(event.keyCode == Keyboard.LEFT){
-                        			ninja.x -= 10;
+                        			heads.x -= 10;
                         			}
                         		
                         		if(event.keyCode == Keyboard.RIGHT){
-                        			ninja.x += 10;
+                        			heads.x += 10;
                         			}
                         	});
                         	
-                        	ninja.addEventListener(TouchEvent.TOUCH, 
+                        	heads.addEventListener(TouchEvent.TOUCH, 
                         	function(e:TouchEvent){
                         		var touch = e.getTouch(stage, TouchPhase.BEGAN);
-                        		trace("NINJA TOUCHED");
+                        		trace("heads TOUCHED");
                         		
                         	});
 
-                        Starling.juggler.tween(ninja, 1.0, {
+                        Starling.juggler.tween(heads, 1.0, {
                             transition: Transitions.EASE_OUT_BOUNCE,
                                 delay: 2.0,
                                 y: 250
