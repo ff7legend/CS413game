@@ -23,6 +23,8 @@ class Root extends Sprite {
     public var p2Image:Image;
     public var headsButton:Image;
     public var tailsButton:Image;
+    public var p1Health:Image;
+    public var p2Health:Image;
 
     public function new() {
         super();
@@ -48,11 +50,11 @@ class Root extends Sprite {
 		
             if (ratio == 1) {
 
-                trace("startup", startup);
-                trace("startup.loadingBitmap", startup.loadingBitmap);
+                //trace("startup", startup);
+                //trace("startup.loadingBitmap", startup.loadingBitmap);
                
-                trace("p1", p1);
-                trace("p2", p2);
+                //trace("p1", p1);
+                //trace("p2", p2);
 	
                 Starling.juggler.tween(startup.loadingBitmap, 2.0, {
 
@@ -66,31 +68,54 @@ class Root extends Sprite {
                     	BG = new Image(Root.assets.getTexture("BG"));
                     	addChild(BG);
 
+                        headsButton = new Image(Root.assets.getTexture("unpressed heads"));
+                        addChild(headsButton);
+                        headsButton.x = 50;
+                        headsButton.y = 260;
+
+                        tailsButton = new Image(Root.assets.getTexture("unpressed tails"));
+                        addChild(tailsButton);
+                        tailsButton.x = 460;
+                        tailsButton.y = 260;
+
                         p1Image = new Image(Root.assets.getTexture("player_ready"));
                         addChild(p1Image);
+                        p1Image.x = 50;
+                        p1Image.y = 160;
 
                         p2Image = new Image(Root.assets.getTexture("boss_ready"));
                         addChild(p2Image);
+                        p2Image.x = 450;
+                        p2Image.y = 60;
 
+                        p1Health = new Image(Root.assets.getTexture("full_health"));
+                        addChild(p1Health);
+                        p1Health.x = 20;
+                        p1Health.y = 150;
 
-                        trace("heads", heads);
-                        trace("tails", tails);
+                        p2Health = new Image(Root.assets.getTexture("full_health"));
+                        addChild(p2Health);
+                        p2Health.x = 600;
+                        p2Health.y = 60;
+
+                        //trace("heads", heads);
+                        //trace("tails", tails);
 
                         p1 = new Player();
-                        trace("p1 health", p1.health);
+                        //trace("p1 health", p1.health);
                         p2 = new Player();
-                        trace("p2 health", p2.health);
+                        //trace("p2 health", p2.health);
                        
                         var ranNum:Float;
                        	ranNum = Math.round(Math.random());
                         //ranNum = 0;
                         
-                        trace("ranNum", ranNum);
+                        //trace("ranNum", ranNum);
                        	
                         if(ranNum%2 == 1){
                         	tails = new Image(Root.assets.getTexture("tails"));
                        	 	addChild(tails);
-                            trace("tails", tails);
+                            //trace("tails", tails);
                         	tails.x = 250;
                         	tails.y = 0;
 
@@ -103,7 +128,7 @@ class Root extends Sprite {
 
                             Starling.current.stage.addEventListener(KeyboardEvent.KEY_DOWN, 
                                 function(event:KeyboardEvent){
-                                    trace(event.keyCode);
+                                    //trace(event.keyCode);
                                     if(event.keyCode == Keyboard.LEFT){
                                         tails.x -= 10;
                                         }
@@ -128,7 +153,7 @@ class Root extends Sprite {
                         }else{
                         	heads = new Image(Root.assets.getTexture("heads"));
                        	 	addChild(heads);
-                            trace("heads", heads);
+                            //trace("heads", heads);
                         	heads.x = 250;
                         	heads.y = 0;
 
@@ -141,7 +166,7 @@ class Root extends Sprite {
 
                             Starling.current.stage.addEventListener(KeyboardEvent.KEY_DOWN, 
                                 function(event:KeyboardEvent){
-                                    trace(event.keyCode);
+                                    //trace(event.keyCode);
                                     if(event.keyCode == Keyboard.LEFT){
                                         heads.x -= 10;
                                     }
