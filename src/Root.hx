@@ -9,6 +9,7 @@ import starling.events.KeyboardEvent;
 import flash.ui.Keyboard;
 import starling.events.TouchEvent;
 import starling.events.TouchPhase;
+import Player;
 
 class Root extends Sprite {
 
@@ -18,9 +19,9 @@ class Root extends Sprite {
     public var heads:Image;
     public var tails:Image;
     public var BG:Image;
+    public var p1: Player;
+    public var p2: Player;
 
-    
-  	
 
     public function new() {
         super();
@@ -58,12 +59,35 @@ class Root extends Sprite {
                        	 	addChild(heads);
                         	heads.x = 250;
                         	heads.y = 0;
+
+                            if(p1.choice == 1){
+                                p2.health -= 1;
+                            }
+                            else{
+                                p1.health -=1;
+                            }
+
                         }else{
 
                         	heads = new Image(Root.assets.getTexture("heads"));
                        	 	addChild(heads);
                         	heads.x = 250;
                         	heads.y = 0;
+
+                            if(p1.choice == 0){
+                                p2.health -= 1;
+                            }
+                            else{
+                                p1.health -=1;
+                            }
+                        }
+
+                        if(p1.health == 0){
+                            trace("You Lose!")
+                        }
+
+                        if(p2.health == 0){
+                            trace("You Win!")
                         }
                         
                         Starling.current.stage.addEventListener(KeyboardEvent.KEY_DOWN, 
