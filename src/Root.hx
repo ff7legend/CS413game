@@ -1,5 +1,3 @@
-
-
 import starling.display.Sprite;
 import starling.utils.AssetManager;
 import starling.display.Image;
@@ -38,22 +36,23 @@ class Root extends Sprite {
 		assets.enqueue("assets/BG.png");
 		assets.enqueue("assets/tails.png");
         assets.enqueue("assets/heads.png");
-        assets.enqueue("assets/player_ready");
-        assets.enqueue("assets/boss_ready");
-        assets.enqueue("assets/pressed heads");
-        assets.enqueue("assets/pressed tails");
-        assets.enqueue("assets/unpressed heads");
-        assets.enqueue("assets/unpressed tails");
-        assets.enqueue("assets/full health");
+        assets.enqueue("assets/player_ready.png");
+        assets.enqueue("assets/boss_ready.png");
+        assets.enqueue("assets/pressed heads.png");
+        assets.enqueue("assets/pressed tails.png");
+        assets.enqueue("assets/unpressed heads.png");
+        assets.enqueue("assets/unpressed tails.png");
+        assets.enqueue("assets/full_health.png");
         
         assets.loadQueue(function onProgress(ratio:Int) {
 		
             if (ratio == 1) {
 
-                //trace("startup", startup);
-                //trace("startup.loadingBitmap", startup.loadingBitmap);
-                //trace("heads, heads");
-                //trace("p1", p1);
+                trace("startup", startup);
+                trace("startup.loadingBitmap", startup.loadingBitmap);
+               
+                trace("p1", p1);
+                trace("p2", p2);
 	
                 Starling.juggler.tween(startup.loadingBitmap, 2.0, {
 
@@ -67,19 +66,33 @@ class Root extends Sprite {
                     	BG = new Image(Root.assets.getTexture("BG"));
                     	addChild(BG);
 
-                        
+                        p1Image = new Image(Root.assets.getTexture("player_ready"));
+                        addChild(p1Image);
+
+                        p2Image = new Image(Root.assets.getTexture("boss_ready"));
+                        addChild(p2Image);
+
+
+                        trace("heads", heads);
+                        trace("tails", tails);
 
                         p1 = new Player();
+                        trace("p1 health", p1.health);
                         p2 = new Player();
+                        trace("p2 health", p2.health);
                        
                         var ranNum:Float;
                        	ranNum = Math.round(Math.random());
+                        //ranNum = 0;
+                        
+                        trace("ranNum", ranNum);
                        	
                         if(ranNum%2 == 1){
-                        	heads = new Image(Root.assets.getTexture("tails"));
+                        	tails = new Image(Root.assets.getTexture("tails"));
                        	 	addChild(tails);
-                        	heads.x = 250;
-                        	heads.y = 0;
+                            trace("tails", tails);
+                        	tails.x = 250;
+                        	tails.y = 0;
 
                             if(p1.choice == 1){
                                 p2.health -= 1;
@@ -88,10 +101,34 @@ class Root extends Sprite {
                                 p1.health -=1;
                             }
 
-                        }else{
+                            Starling.current.stage.addEventListener(KeyboardEvent.KEY_DOWN, 
+                                function(event:KeyboardEvent){
+                                    trace(event.keyCode);
+                                    if(event.keyCode == Keyboard.LEFT){
+                                        tails.x -= 10;
+                                        }
+                                
+                                    if(event.keyCode == Keyboard.RIGHT){
+                                        tails.x += 10;
+                                        }
+                                });
+                            
+                                tails.addEventListener(TouchEvent.TOUCH, 
+                                function(e:TouchEvent){
+                                    var touch = e.getTouch(stage, TouchPhase.BEGAN);
+                                    //trace("tails TOUCHED");
+                                
+                                });
+                            Starling.juggler.tween(tails, 1.0, {
+                                transition: Transitions.EASE_OUT_BOUNCE,
+                                    delay: 2.0,
+                                    y: 250
+                                    });
 
+                        }else{
                         	heads = new Image(Root.assets.getTexture("heads"));
                        	 	addChild(heads);
+                            trace("heads", heads);
                         	heads.x = 250;
                         	heads.y = 0;
 
@@ -101,6 +138,31 @@ class Root extends Sprite {
                             else{
                                 p1.health -=1;
                             }
+
+                            Starling.current.stage.addEventListener(KeyboardEvent.KEY_DOWN, 
+                                function(event:KeyboardEvent){
+                                    trace(event.keyCode);
+                                    if(event.keyCode == Keyboard.LEFT){
+                                        heads.x -= 10;
+                                    }
+                                
+                                    if(event.keyCode == Keyboard.RIGHT){
+                                        heads.x += 10;
+                                    }
+                                });
+                            
+                                heads.addEventListener(TouchEvent.TOUCH, 
+                                function(e:TouchEvent){
+                                    var touch = e.getTouch(stage, TouchPhase.BEGAN);
+                                    //trace("heads TOUCHED");
+                                
+                                });
+                            Starling.juggler.tween(heads, 1.0, {
+                                transition: Transitions.EASE_OUT_BOUNCE,
+                                    delay: 2.0,
+                                    y: 250
+                        });
+
                         }
 
                         if(p1.health == 0){
@@ -111,29 +173,7 @@ class Root extends Sprite {
                             trace("You Win!");
                         }
                         
-                        Starling.current.stage.addEventListener(KeyboardEvent.KEY_DOWN, 
-                        	function(event:KeyboardEvent){
-                        		trace(event.keyCode);
-                        		if(event.keyCode == Keyboard.LEFT){
-                        			heads.x -= 10;
-                        			}
-                        		
-                        		if(event.keyCode == Keyboard.RIGHT){
-                        			heads.x += 10;
-                        			}
-                        	});
-                        	
-                        	heads.addEventListener(TouchEvent.TOUCH, 
-                        	function(e:TouchEvent){
-                        		var touch = e.getTouch(stage, TouchPhase.BEGAN);
-                        		//trace("heads TOUCHED");
-                        		
-                        	});
-                        Starling.juggler.tween(heads, 1.0, {
-                            transition: Transitions.EASE_OUT_BOUNCE,
-                                delay: 2.0,
-                                y: 250
-                                });
+                        
 
                     }
 
