@@ -7,6 +7,10 @@ import starling.events.KeyboardEvent;
 import flash.ui.Keyboard;
 import starling.events.TouchEvent;
 import starling.events.TouchPhase;
+import starling.events.EventDispatcher;
+import starling.display.Button;
+import starling.events.Event;
+
 import Player;
 
 class Root extends Sprite {
@@ -21,10 +25,10 @@ class Root extends Sprite {
     public var p2: Player;
     public var p1Image:Image;
     public var p2Image:Image;
-    public var unpressedHeads:Image;
-    public var unpressedTails:Image;
-    public var pressedHeads:Image;
-    public var pressedTails:Image;
+    public var unpressedHeads:Button;
+    public var unpressedTails:Button;
+    public var pressedHeads:Button;
+    public var pressedTails:Button;
     public var p1Health:Image;
     public var p2Health:Image;
 
@@ -70,25 +74,15 @@ class Root extends Sprite {
                     	BG = new Image(Root.assets.getTexture("BG"));
                     	addChild(BG);
 
-                        unpressedHeads = new Image(Root.assets.getTexture("unpressed heads"));
-                        addChild(unpressedHeads);
-                        unpressedHeads.x = 50;
-                        unpressedHeads.y = 260;
-                        pressedHeads = new Image(Root.assets.getTexture("pressed heads"));
+                        pressedHeads = new Button(Root.assets.getTexture("pressed heads"));
                         addChild(pressedHeads);
                         pressedHeads.x = 50;
                         pressedHeads.y = 260;
-                        pressedHeads.visible = false;
-
-                        unpressedTails = new Image(Root.assets.getTexture("unpressed Tails"));
-                        addChild(unpressedTails);
-                        unpressedTails.x = 460;
-                        unpressedTails.y = 260;
-                        pressedTails = new Image(Root.assets.getTexture("pressed Tails"));
+                        
+                        pressedTails = new Button(Root.assets.getTexture("pressed Tails"));
                         addChild(pressedTails);
                         pressedTails.x = 460;
                         pressedTails.y = 260;
-                        pressedHeads.visible = false;
 
                         p1Image = new Image(Root.assets.getTexture("player_ready"));
                         addChild(p1Image);
@@ -123,6 +117,19 @@ class Root extends Sprite {
                         //ranNum = 0;
                         
                         //trace("ranNum", ranNum);
+
+                        //button functionality
+                        function onHeadsTriggered(event:Event){
+                            trace("Heads Pressed");
+                            p1.choice = 1;
+                        }
+                        pressedHeads.addEventListener(Event.TRIGGERED, onHeadsTriggered);
+
+                        function onTailsTriggered(event:Event){
+                            trace("Tails Pressed");
+                            p1.choice = 2;
+                        }
+                        pressedTails.addEventListener(Event.TRIGGERED, onTailsTriggered);
                        	
                         if(ranNum%2 == 1){
                         	tails = new Image(Root.assets.getTexture("tails"));
