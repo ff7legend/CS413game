@@ -21,8 +21,10 @@ class Root extends Sprite {
     public var p2: Player;
     public var p1Image:Image;
     public var p2Image:Image;
-    public var headsButton:Image;
-    public var tailsButton:Image;
+    public var unpressedHeads:Image;
+    public var unpressedTails:Image;
+    public var pressedHeads:Image;
+    public var pressedTails:Image;
     public var p1Health:Image;
     public var p2Health:Image;
 
@@ -41,9 +43,9 @@ class Root extends Sprite {
         assets.enqueue("assets/player_ready.png");
         assets.enqueue("assets/boss_ready.png");
         assets.enqueue("assets/pressed heads.png");
-        assets.enqueue("assets/pressed tails.png");
+        assets.enqueue("assets/pressed Tails.png");
         assets.enqueue("assets/unpressed heads.png");
-        assets.enqueue("assets/unpressed tails.png");
+        assets.enqueue("assets/unpressed Tails.png");
         assets.enqueue("assets/full_health.png");
         
         assets.loadQueue(function onProgress(ratio:Int) {
@@ -68,15 +70,25 @@ class Root extends Sprite {
                     	BG = new Image(Root.assets.getTexture("BG"));
                     	addChild(BG);
 
-                        headsButton = new Image(Root.assets.getTexture("unpressed heads"));
-                        addChild(headsButton);
-                        headsButton.x = 50;
-                        headsButton.y = 260;
+                        unpressedHeads = new Image(Root.assets.getTexture("unpressed heads"));
+                        addChild(unpressedHeads);
+                        unpressedHeads.x = 50;
+                        unpressedHeads.y = 260;
+                        pressedHeads = new Image(Root.assets.getTexture("pressed heads"));
+                        addChild(pressedHeads);
+                        pressedHeads.x = 50;
+                        pressedHeads.y = 260;
+                        pressedHeads.visible = false;
 
-                        tailsButton = new Image(Root.assets.getTexture("unpressed tails"));
-                        addChild(tailsButton);
-                        tailsButton.x = 460;
-                        tailsButton.y = 260;
+                        unpressedTails = new Image(Root.assets.getTexture("unpressed Tails"));
+                        addChild(unpressedTails);
+                        unpressedTails.x = 460;
+                        unpressedTails.y = 260;
+                        pressedTails = new Image(Root.assets.getTexture("pressed Tails"));
+                        addChild(pressedTails);
+                        pressedTails.x = 460;
+                        pressedTails.y = 260;
+                        pressedHeads.visible = false;
 
                         p1Image = new Image(Root.assets.getTexture("player_ready"));
                         addChild(p1Image);
@@ -126,24 +138,6 @@ class Root extends Sprite {
                                 p1.health -=1;
                             }
 
-                            Starling.current.stage.addEventListener(KeyboardEvent.KEY_DOWN, 
-                                function(event:KeyboardEvent){
-                                    //trace(event.keyCode);
-                                    if(event.keyCode == Keyboard.LEFT){
-                                        tails.x -= 10;
-                                        }
-                                
-                                    if(event.keyCode == Keyboard.RIGHT){
-                                        tails.x += 10;
-                                        }
-                                });
-                            
-                                tails.addEventListener(TouchEvent.TOUCH, 
-                                function(e:TouchEvent){
-                                    var touch = e.getTouch(stage, TouchPhase.BEGAN);
-                                    //trace("tails TOUCHED");
-                                
-                                });
                             Starling.juggler.tween(tails, 1.0, {
                                 transition: Transitions.EASE_OUT_BOUNCE,
                                     delay: 2.0,
@@ -164,24 +158,6 @@ class Root extends Sprite {
                                 p1.health -=1;
                             }
 
-                            Starling.current.stage.addEventListener(KeyboardEvent.KEY_DOWN, 
-                                function(event:KeyboardEvent){
-                                    //trace(event.keyCode);
-                                    if(event.keyCode == Keyboard.LEFT){
-                                        heads.x -= 10;
-                                    }
-                                
-                                    if(event.keyCode == Keyboard.RIGHT){
-                                        heads.x += 10;
-                                    }
-                                });
-                            
-                                heads.addEventListener(TouchEvent.TOUCH, 
-                                function(e:TouchEvent){
-                                    var touch = e.getTouch(stage, TouchPhase.BEGAN);
-                                    //trace("heads TOUCHED");
-                                
-                                });
                             Starling.juggler.tween(heads, 1.0, {
                                 transition: Transitions.EASE_OUT_BOUNCE,
                                     delay: 2.0,
