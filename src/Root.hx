@@ -21,7 +21,10 @@ class Root extends Sprite {
     public var BG:Image;
     public var p1: Player;
     public var p2: Player;
-
+    public var p1Image:Image;
+    public var p2Image:Image;
+    public var headsButton:Image;
+    public var tailsButton:Image;
 
     public function new() {
         super();
@@ -35,28 +38,46 @@ class Root extends Sprite {
 		assets.enqueue("assets/BG.png");
 		assets.enqueue("assets/tails.png");
         assets.enqueue("assets/heads.png");
+        assets.enqueue("assets/player_ready");
+        assets.enqueue("assets/boss_ready");
+        assets.enqueue("assets/pressed heads");
+        assets.enqueue("assets/pressed tails");
+        assets.enqueue("assets/unpressed heads");
+        assets.enqueue("assets/unpressed tails");
+        assets.enqueue("assets/full health");
         
         assets.loadQueue(function onProgress(ratio:Int) {
 		
             if (ratio == 1) {
+
+                //trace("startup", startup);
+                //trace("startup.loadingBitmap", startup.loadingBitmap);
+                //trace("heads, heads");
+                //trace("p1", p1);
 	
                 Starling.juggler.tween(startup.loadingBitmap, 2.0, {
+
                     transition: Transitions.EASE_OUT,
                         delay: 1.0,
                         alpha: 0,
                         onComplete: function() {
                         startup.removeChild(startup.loadingBitmap);
                         
+                        //add sprites into game
                     	BG = new Image(Root.assets.getTexture("BG"));
                     	addChild(BG);
-						
+
+                        
+
+                        p1 = new Player();
+                        p2 = new Player();
                        
                         var ranNum:Float;
                        	ranNum = Math.round(Math.random());
                        	
                         if(ranNum%2 == 1){
                         	heads = new Image(Root.assets.getTexture("tails"));
-                       	 	addChild(heads);
+                       	 	addChild(tails);
                         	heads.x = 250;
                         	heads.y = 0;
 
@@ -83,11 +104,11 @@ class Root extends Sprite {
                         }
 
                         if(p1.health == 0){
-                            trace("You Lose!")
+                            trace("You Lose!");
                         }
 
                         if(p2.health == 0){
-                            trace("You Win!")
+                            trace("You Win!");
                         }
                         
                         Starling.current.stage.addEventListener(KeyboardEvent.KEY_DOWN, 
@@ -105,10 +126,9 @@ class Root extends Sprite {
                         	heads.addEventListener(TouchEvent.TOUCH, 
                         	function(e:TouchEvent){
                         		var touch = e.getTouch(stage, TouchPhase.BEGAN);
-                        		trace("heads TOUCHED");
+                        		//trace("heads TOUCHED");
                         		
                         	});
-
                         Starling.juggler.tween(heads, 1.0, {
                             transition: Transitions.EASE_OUT_BOUNCE,
                                 delay: 2.0,

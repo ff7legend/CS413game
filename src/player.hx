@@ -1,12 +1,13 @@
 
 import starling.core.Starling;
+import starling.display.Sprite;
 
 
 class Player extends Sprite {
 	
 
-		public var health:int;
-		public var choice:int;
+		public var health:Int;
+		public var choice:Int;
 
 
 		public function new () {
