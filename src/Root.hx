@@ -1,3 +1,10 @@
+import haxe.ds.Vector;
+import starling.display.MovieClip;
+import flash.xml.XML;
+
+//import flash.display3D.textures.Texture;
+import starling.textures.Texture;
+import starling.textures.TextureAtlas;
 import starling.display.Sprite;
 import starling.utils.AssetManager;
 import starling.display.Image;
@@ -12,7 +19,14 @@ import Player;
 class Root extends Sprite {
 
 
-
+	//public var atlasTexture:Texture;
+	//public var atlasXML:XML;
+	
+ 
+	//public var atlas:TextureAtlas;
+	public var movie:MovieClip;
+	
+	
     public static var assets:AssetManager;
     public var heads:Image;
     public var tails:Image;
@@ -34,7 +48,9 @@ class Root extends Sprite {
     
 
         assets = new AssetManager();
-	
+		assets.enqueue("assets/coin_01.png");
+		assets.enqueue("assets/coin_00.png");
+		
 		assets.enqueue("assets/BG.png");
 		assets.enqueue("assets/tails.png");
         assets.enqueue("assets/heads.png");
@@ -65,8 +81,22 @@ class Root extends Sprite {
                         startup.removeChild(startup.loadingBitmap);
                         
                         //add sprites into game
+						
+						movie = new MovieClip(Root.assets.getTextures("coin_"),12);
+						movie.loop = true;
+						movie.x = 250;
+						movie.y = 0;
+						
+						
+						
+						
                     	BG = new Image(Root.assets.getTexture("BG"));
                     	addChild(BG);
+						
+					
+						
+						Starling.juggler.add(movie);
+						
 
                         headsButton = new Image(Root.assets.getTexture("unpressed heads"));
                         addChild(headsButton);
@@ -112,12 +142,15 @@ class Root extends Sprite {
                         
                         //trace("ranNum", ranNum);
                        	
+						
+							//movieclip start
+						addChild(movie);
+						movie.play();
                         if(ranNum%2 == 1){
                         	tails = new Image(Root.assets.getTexture("tails"));
-                       	 	addChild(tails);
-                            //trace("tails", tails);
+                       	 	//trace("tails", tails);
                         	tails.x = 250;
-                        	tails.y = 0;
+                        	tails.y = 250;
 
                             if(p1.choice == 1){
                                 p2.health -= 1;
@@ -144,18 +177,20 @@ class Root extends Sprite {
                                     //trace("tails TOUCHED");
                                 
                                 });
-                            Starling.juggler.tween(tails, 1.0, {
+								
+                            Starling.juggler.tween(movie, 1.0, {
                                 transition: Transitions.EASE_OUT_BOUNCE,
                                     delay: 2.0,
-                                    y: 250
+                                    y: 250,
+									onComplete: function add() { addChild(tails); removeChild(movie); }
                                     });
+								
 
                         }else{
                         	heads = new Image(Root.assets.getTexture("heads"));
-                       	 	addChild(heads);
-                            //trace("heads", heads);
+                       	 	//trace("heads", heads);
                         	heads.x = 250;
-                        	heads.y = 0;
+                        	heads.y = 250;
 
                             if(p1.choice == 0){
                                 p2.health -= 1;
@@ -182,14 +217,17 @@ class Root extends Sprite {
                                     //trace("heads TOUCHED");
                                 
                                 });
-                            Starling.juggler.tween(heads, 1.0, {
+								
+                            Starling.juggler.tween(movie, 1.0, {
                                 transition: Transitions.EASE_OUT_BOUNCE,
                                     delay: 2.0,
-                                    y: 250
+                                    y: 250,
+									onComplete: function add() { addChild(tails); removeChild(movie);}
                         });
-
+						
                         }
-
+			
+						
                         if(p1.health == 0){
                             trace("You Lose!");
                         }
