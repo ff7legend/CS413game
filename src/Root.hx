@@ -216,6 +216,19 @@ class Root extends Sprite {
 												y: 250,
 												onComplete: function add() { 
 													addChild(tails); removeChild(movie); movie.x = 250; movie.y = 0; addChild(movie); p1.choice = 0; 
+																	if(p1.choice == 0){
+															p2.health -= 1;
+															if (p2.health == 3) { p2Health.texture = Root.assets.getTexture("one_damage_health"); }
+															if (p2.health == 2) { p2Health.texture = Root.assets.getTexture("two_damage_health"); }
+															if (p2.health == 1) { p2Health.texture = Root.assets.getTexture("three_damage_health"); }
+															
+														}
+														else{
+															p1.health -= 1;
+															if (p1.health == 3) { p1Health.texture = Root.assets.getTexture("one_damage_health"); }
+															if (p1.health == 2) { p1Health.texture = Root.assets.getTexture("two_damage_health"); }
+															if (p1.health == 1) { p1Health.texture = Root.assets.getTexture("three_damage_health"); }
+														}
 													if(p1.health == 0){
 														//trace("You Lose!");
 														removeChild(movie);
@@ -248,19 +261,7 @@ class Root extends Sprite {
 										heads.x = 250;
 										heads.y = 250;
 
-										if(p1.choice == 1){
-											p2.health -= 1;
-											if (p2.health == 3) { p2Health.texture = Root.assets.getTexture("one_damage_health"); }
-											if (p2.health == 2) { p2Health.texture = Root.assets.getTexture("two_damage_health"); }
-											if (p2.health == 1) { p2Health.texture = Root.assets.getTexture("three_damage_health"); }
-											
-										}
-										else{
-											p1.health -= 1;
-											if (p1.health == 3) { p1Health.texture = Root.assets.getTexture("one_damage_health"); }
-											if (p1.health == 2) { p1Health.texture = Root.assets.getTexture("two_damage_health"); }
-											if (p1.health == 1) { p1Health.texture = Root.assets.getTexture("three_damage_health"); }
-										}
+										
 										
 									
 										Starling.juggler.tween(movie, 1.0, {
@@ -269,6 +270,20 @@ class Root extends Sprite {
 												delay: 2.0,
 												y: 250,
 												onComplete: function add() { addChild(heads); removeChild(movie); movie.x = 250; movie.y = 0; addChild(movie); p1.choice = 0;
+																	if(p1.choice == 1){
+															p2.health -= 1;
+															if (p2.health == 3) { p2Health.texture = Root.assets.getTexture("one_damage_health"); }
+															if (p2.health == 2) { p2Health.texture = Root.assets.getTexture("two_damage_health"); }
+															if (p2.health == 1) { p2Health.texture = Root.assets.getTexture("three_damage_health"); }
+															
+														}
+														else{
+															p1.health -= 1;
+															if (p1.health == 3) { p1Health.texture = Root.assets.getTexture("one_damage_health"); }
+															if (p1.health == 2) { p1Health.texture = Root.assets.getTexture("two_damage_health"); }
+															if (p1.health == 1) { p1Health.texture = Root.assets.getTexture("three_damage_health"); }
+														}
+												
 													if(p1.health == 0){
 														//trace("You Lose!");
 														removeChild(movie);
