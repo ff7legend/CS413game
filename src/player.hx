@@ -12,7 +12,7 @@ class Player extends Sprite {
 
 		public function new () {
 			super();
-			health = 10;
+			health = 4;
 			choice = 0;
 		}
 
