@@ -208,10 +208,10 @@ class Root extends Sprite {
                                     delay: 2.0,
                                     y: 250,
 									onComplete: function add() { addChild(tails); removeChild(movie); }
-                                    });
-								
-
-                        }else{
+                                    });	
+                            });
+                        }
+                        else{
                         	heads = new Image(Root.assets.getTexture("heads"));
                        	 	//trace("heads", heads);
                         	heads.x = 250;
@@ -252,10 +252,10 @@ class Root extends Sprite {
                                     delay: 2.0,
                                     y: 250,
 									onComplete: function add() { addChild(tails); removeChild(movie);}
-                        });
+                              });
 						
+                             });
                         }
-			
 						
                         if(p1.health == 0){
                             trace("You Lose!");
@@ -264,9 +264,6 @@ class Root extends Sprite {
                         if(p2.health == 0){
                             trace("You Win!");
                         }
-                        
-                        
-
                     }
 
                 });
