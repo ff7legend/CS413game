@@ -185,8 +185,7 @@ class Root extends Sprite {
 						
 						function logic(){
 							//movie.pause();
-								
-<<<<<<< HEAD
+
 								
 									if(ranNum%2 == 1){
 										tails = new Image(Root.assets.getTexture("tails"));
@@ -299,64 +298,6 @@ class Root extends Sprite {
 								
 								
 						}//end logic()
-=======
-                            Starling.juggler.tween(movie, 1.0, {
-
-                            Starling.juggler.tween(tails, 1.0, {
-
-                                transition: Transitions.EASE_OUT_BOUNCE,
-                                    delay: 2.0,
-                                    y: 250,
-									onComplete: function add() { addChild(tails); removeChild(movie); }
-                                    });	
-                            });
-                        }
-                        else{
-                        	heads = new Image(Root.assets.getTexture("heads"));
-                       	 	//trace("heads", heads);
-                        	heads.x = 250;
-                        	heads.y = 250;
-
-                            if(p1.choice == 0){
-                                p2.health -= 1;
-                            }
-                            else{
-                                p1.health -=1;
-                            }
-
-
-                            Starling.current.stage.addEventListener(KeyboardEvent.KEY_DOWN, 
-                                function(event:KeyboardEvent){
-                                    //trace(event.keyCode);
-                                    if(event.keyCode == Keyboard.LEFT){
-                                        heads.x -= 10;
-                                    }
-                                
-                                    if(event.keyCode == Keyboard.RIGHT){
-                                        heads.x += 10;
-                                    }
-                                });
-                            
-                                heads.addEventListener(TouchEvent.TOUCH, 
-                                function(e:TouchEvent){
-                                    var touch = e.getTouch(stage, TouchPhase.BEGAN);
-                                    //trace("heads TOUCHED");
-                                
-                                });
-								
-                            Starling.juggler.tween(movie, 1.0, {
-
-                            Starling.juggler.tween(heads, 1.0, {
-
-                                transition: Transitions.EASE_OUT_BOUNCE,
-                                    delay: 2.0,
-                                    y: 250,
-									onComplete: function add() { addChild(tails); removeChild(movie);}
-                              });
-						
-                             });
-                        }
->>>>>>> origin/master
 						
                         //button functionality
                         function onHeadsTriggered(event:Event){
@@ -379,14 +320,12 @@ class Root extends Sprite {
 							logic();
 							
                         }
-<<<<<<< HEAD
+
                         pressedTails.addEventListener(Event.TRIGGERED, onTailsTriggered);
                        
                     
                     }//end onComplete
-=======
-                    }
->>>>>>> origin/master
+
 
                 });
             }
