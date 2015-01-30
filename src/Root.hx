@@ -14,6 +14,10 @@ import starling.events.KeyboardEvent;
 import flash.ui.Keyboard;
 import starling.events.TouchEvent;
 import starling.events.TouchPhase;
+import starling.events.EventDispatcher;
+import starling.display.Button;
+import starling.events.Event;
+
 import Player;
 
 class Root extends Sprite {
@@ -37,6 +41,10 @@ class Root extends Sprite {
     public var p2Image:Image;
     public var headsButton:Image;
     public var tailsButton:Image;
+    public var unpressedHeads:Button;
+    public var unpressedTails:Button;
+    public var pressedHeads:Button;
+    public var pressedTails:Button;
     public var p1Health:Image;
     public var p2Health:Image;
 
@@ -141,6 +149,19 @@ class Root extends Sprite {
                         //ranNum = 0;
                         
                         //trace("ranNum", ranNum);
+
+                        //button functionality
+                        function onHeadsTriggered(event:Event){
+                            trace("Heads Pressed");
+                            p1.choice = 1;
+                        }
+                        pressedHeads.addEventListener(Event.TRIGGERED, onHeadsTriggered);
+
+                        function onTailsTriggered(event:Event){
+                            trace("Tails Pressed");
+                            p1.choice = 2;
+                        }
+                        pressedTails.addEventListener(Event.TRIGGERED, onTailsTriggered);
                        	
 						
 							//movieclip start
@@ -158,6 +179,7 @@ class Root extends Sprite {
                             else{
                                 p1.health -=1;
                             }
+
 
                             Starling.current.stage.addEventListener(KeyboardEvent.KEY_DOWN, 
                                 function(event:KeyboardEvent){
@@ -179,6 +201,9 @@ class Root extends Sprite {
                                 });
 								
                             Starling.juggler.tween(movie, 1.0, {
+
+                            Starling.juggler.tween(tails, 1.0, {
+
                                 transition: Transitions.EASE_OUT_BOUNCE,
                                     delay: 2.0,
                                     y: 250,
@@ -198,6 +223,7 @@ class Root extends Sprite {
                             else{
                                 p1.health -=1;
                             }
+
 
                             Starling.current.stage.addEventListener(KeyboardEvent.KEY_DOWN, 
                                 function(event:KeyboardEvent){
@@ -219,6 +245,9 @@ class Root extends Sprite {
                                 });
 								
                             Starling.juggler.tween(movie, 1.0, {
+
+                            Starling.juggler.tween(heads, 1.0, {
+
                                 transition: Transitions.EASE_OUT_BOUNCE,
                                     delay: 2.0,
                                     y: 250,
